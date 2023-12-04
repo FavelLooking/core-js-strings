@@ -20,7 +20,7 @@
  *   getStringLength(undefined) => 0
  */
 function getStringLength(value) {
-  return Boolean(value) ? value.length : 0;
+  return value ? value.length : 0;
 }
 
 /**
@@ -38,8 +38,7 @@ function getStringLength(value) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  console.log(value);
-  return typeof value === 'string' || value instanceof String
+  return typeof value === 'string' || value instanceof String;
 }
 
 /**
@@ -85,7 +84,7 @@ function getFirstChar(value) {
  *   removeLeadingAndTrailingWhitespaces('\t\t\tHello, World! ') => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-  return value.trim()
+  return value.trim();
 }
 
 /**
@@ -100,7 +99,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   removeLeadingWhitespaces('\t\t\tHello, World! ') => 'Hello, World! '
  */
 function removeLeadingWhitespaces(value) {
-  return value.trimStart()
+  return value.trimStart();
 }
 
 /**
@@ -115,7 +114,7 @@ function removeLeadingWhitespaces(value) {
  *   removeTrailingWhitespaces('\t\t\tHello, World! ') => '\t\t\tHello, World!'
  */
 function removeTrailingWhitespaces(value) {
-  return value.trimEnd()
+  return value.trimEnd();
 }
 
 /**
@@ -132,7 +131,7 @@ function removeTrailingWhitespaces(value) {
  *   repeatString('abc', -2) => ''
  */
 function repeatString(str, times) {
-  return times > 0 ? str.repeat(times) : ''
+  return times > 0 ? str.repeat(times) : '';
 }
 
 /**
