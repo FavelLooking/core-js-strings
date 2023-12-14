@@ -166,8 +166,12 @@ function removeFirstOccurrences(str, value) {
  *   removeLastOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeLastOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeLastOccurrences(str, value) {
+  const lastIndex = str.lastIndexOf(value);
+  if (lastIndex !== -1) {
+    return str.slice(0, lastIndex) + str.slice(lastIndex + value.length);
+  }
+  return str;
 }
 
 /**
@@ -183,9 +187,11 @@ function removeLastOccurrences(/* str, value */) {
  *   sumOfCodes() => 0
  */
 function sumOfCodes(str) {
-  let total;
-  for (let i = 0; i < str.length; i += 1) {
-    total += str.charCodeAt(i);
+  let total = 0;
+  const newStr = String(str);
+  if (!str) return 0;
+  for (let i = 0; i < newStr.length; i += 1) {
+    total += newStr.charCodeAt(i);
   }
   return total;
 }
@@ -250,8 +256,6 @@ function formatTime(minutes, seconds) {
  *   reverseString('12345') => '54321'
  */
 function reverseString(str) {
-  console.log(str.split(''));
-  console.log(str.split('').reverse());
   return str.split('').reverse().join('');
 }
 
@@ -318,7 +322,6 @@ function countVowels(str) {
     'U',
     'Y',
   ];
-  console.log(str);
   for (let i = 0; i < str.length; i += 1) {
     if (lettersArr.join('').includes(str.split('')[i])) {
       result += 1;
@@ -428,8 +431,8 @@ function getStringFromTemplate(firstName, lastName) {
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  return value.slice(7, -1);
 }
 
 /**
@@ -443,8 +446,8 @@ function extractNameFromTemplate(/* value */) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.slice(1, -1);
 }
 
 /**
@@ -462,8 +465,8 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -482,8 +485,25 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const codeArr = [];
+  const result = [];
+  for (let i = 0; i < str.length; i += 1) {
+    const code = str.charCodeAt(i);
+    if (code < 65) {
+      codeArr.push(code);
+    } else if (code >= 78 && code <= 90) {
+      codeArr.push(code - 13);
+    } else if (code >= 65 && code <= 77) {
+      codeArr.push(code + 13);
+    } else if (code + 13 > 122) {
+      codeArr.push(code - 13);
+    } else {
+      codeArr.push(code + 13);
+    }
+    result.push(String.fromCharCode(codeArr[i]));
+  }
+  return result.join('');
 }
 
 /**
@@ -510,8 +530,70 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  let index = 0;
+  let resultIndex;
+
+  switch (true) {
+    case value.includes('A'):
+      index = 0;
+      break;
+    case value.includes('2'):
+      index = 1;
+      break;
+    case value.includes('3'):
+      index = 2;
+      break;
+    case value.includes('4'):
+      index = 3;
+      break;
+    case value.includes('5'):
+      index = 4;
+      break;
+    case value.includes('6'):
+      index = 5;
+      break;
+    case value.includes('7'):
+      index = 6;
+      break;
+    case value.includes('8'):
+      index = 7;
+      break;
+    case value.includes('9'):
+      index = 8;
+      break;
+    case value.includes('10'):
+      index = 9;
+      break;
+    case value.includes('J'):
+      index = 10;
+      break;
+    case value.includes('Q'):
+      index = 11;
+      break;
+    case value.includes('K'):
+      index = 12;
+      break;
+    default:
+      index = 13;
+      break;
+  }
+
+  switch (true) {
+    case value.includes('♣'):
+      resultIndex = index;
+      break;
+    case value.includes('♦'):
+      resultIndex = index + 13;
+      break;
+    case value.includes('♥'):
+      resultIndex = index + 26;
+      break;
+    default:
+      resultIndex = index + 39;
+      break;
+  }
+  return resultIndex;
 }
 
 module.exports = {
